@@ -16,3 +16,10 @@ Task list:
 * Documentation
 * Presentation
 * Recording (taking photos etc)
+
+Pages on the web app:
+* Home Page (contains info about the app and signup/login)
+* Account Page (basic dashboard)
+* GeoSecurity add settings for a geolocation for ATMs
+* Add a credit card etc
+* feel free to add to this
