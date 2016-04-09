@@ -16,6 +16,7 @@ Task list:
 * Documentation
 * Presentation
 * Recording (taking photos etc)
+* Blurbs about the product which will be displayed on the home page
 
 Pages on the web app:
 * Home Page (contains info about the app and signup/login)
