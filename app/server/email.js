@@ -14,6 +14,4 @@ Meteor.startup(function () {
     smtpString += "@" + smtpSettings.HOST + ":" + smtpSettings.PORT + "/";
     //console.log(smtpString);
     process.env.MAIL_URL = smtpString;
-    if (RUN_TESTS) { runTests(); };
-
 });
