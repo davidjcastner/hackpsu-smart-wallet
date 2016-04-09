@@ -2,8 +2,8 @@ Meteor.startup(function () {
     //  the MAIL_URL environment variable should be in the form of:
     //  smtp://USERNAME:PASSWORD@HOST:PORT/
     var smtpSettings = {
-        USERNAME: "", // SMTP Hostname
-        PASSWORD: "", // Default Password
+        USERNAME: "postmaster@mg.smartwallet.com", // SMTP Hostname
+        PASSWORD: "5e548392144a5255deca9ce486df1d11", // Default Password
         HOST: "smtp.mailgun.org",
         PORT: "587"
     }
