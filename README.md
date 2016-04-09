@@ -10,7 +10,7 @@ Features:
 * Trading money by tapping wallets to each other
 * customization of profile
 * notifcations
-* identification of phone via unique mac address
+* identification of phone via tokenization
 
 Task list:
 * Come up with a domain that has a pun
