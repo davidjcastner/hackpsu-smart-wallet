@@ -2,7 +2,7 @@ var URL_START_STRING = "http://api.reimaginebanking.com/";
 var KEY = "key=a333eed3b211511bc796f0798ede5288";
 var CHECK_TRANSACTION_INTERVAL = 1000 * 30; // 30 seconds
 var EMAIL_SENDER_ADDRESS = "psusmartwallet@gmail.com";
-var SIMULATION_COUNT = 5; // will send 5 of each type for each account
+var SIMULATION_COUNT = 4; // will send 5 of each type for each account
 var SIMULATION_DATE = "2016-04-10";
 
 Create_Nessie_Customer = function (userProfile, userEmail) {
@@ -141,7 +141,7 @@ var Send_Notification = function (userId, options) {
         subject: "Capital Zero Warning",
         text: message
     });
-    //console.log("Email Sent");
+    console.log("Email Sent");
 };
 
 var gps_position_generator = function () {
@@ -153,7 +153,20 @@ var gps_position_generator = function () {
 };
 
 var notInsideAllowedZones = function (userId, options) {
-    return true;
+    if (GeoLocations.find({userId:userId}).count() <= 0) {
+        return false;
+    };
+    var isTrue = true
+    var geos = GeoLocations.find({userId:userId});
+    geos.forEach(function (locationData) {
+        try {
+            var delta = getDistanceFromLatLonInKm(options.lat, options.long, locationData.lat, locationData.long);
+            if (delta <= options.distance) {
+                isTrue = false;
+            };
+        } catch (error) {};
+    });
+    return isTrue;
 };
 
 var Start_Simulation = function (userId) {
@@ -173,8 +186,8 @@ var Start_Simulation = function (userId) {
             var urls = [
                 URL_START_STRING + "accounts/" + accountId + "/deposits?" + KEY,
                 /*URL_START_STRING + "accounts/" + accountId + "/transfers?type=payer&" + KEY,
-                URL_START_STRING + "accounts/" + accountId + "/transfers?type=payee&" + KEY,*/
-                URL_START_STRING + "accounts/" + accountId + "/withdrawals?" + KEY
+                URL_START_STRING + "accounts/" + accountId + "/transfers?type=payee&" + KEY,
+                URL_START_STRING + "accounts/" + accountId + "/withdrawals?" + KEY*/
             ];
             for (var k = 0; k < urls.length; k++) {
                 var url = urls[k];
@@ -193,6 +206,27 @@ var Start_Simulation = function (userId) {
         };
     };
 };
+
+function deg2rad(deg) {
+    return deg * (Math.PI/180)
+}
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c * 0.621371; // Distance in mile
+    //console.log(d);
+    return d;
+}
+
+
+
+Meteor.startup(function () {
+    //getDistanceFromLatLonInKm(45,90,46,91);
+});
 
 Meteor.startup(function () {
     testURL = URL_START_STRING + "customers?" + KEY;
