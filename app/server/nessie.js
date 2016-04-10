@@ -2,7 +2,7 @@ var URL_START_STRING = "http://api.reimaginebanking.com/";
 var KEY = "key=a333eed3b211511bc796f0798ede5288";
 var CHECK_TRANSACTION_INTERVAL = 1000 * 30; // 30 seconds
 var EMAIL_SENDER_ADDRESS = "psusmartwallet@gmail.com";
-var SIMULATION_COUNT = 2; // will send 5 of each type for each account
+var SIMULATION_COUNT = 5; // will send 5 of each type for each account
 var SIMULATION_DATE = "2016-04-10";
 
 Create_Nessie_Customer = function (userProfile, userEmail) {
@@ -48,7 +48,7 @@ Create_Nessie_Customer = function (userProfile, userEmail) {
                     }
                 }
             );
-            startCheckProcess(user._id);
+            //startCheckProcess(user._id);
         };
     });
 };
@@ -141,7 +141,15 @@ var Send_Notification = function (userId, options) {
         subject: "Capital Zero Warning",
         text: message
     });
-    console.log("Email Sent");
+    //console.log("Email Sent");
+};
+
+var gps_position_generator = function () {
+    var newLat = Math.random() * (90 - (-90)) + (-90);
+    var newLng = Math.random() * (180 - (-180)) + (-180);
+    //console.log(newLat);
+    //console.log(newLng);
+    return {lat: newLat, long: newLng};
 };
 
 var notInsideAllowedZones = function (userId, options) {
@@ -152,6 +160,7 @@ var Start_Simulation = function (userId) {
     var user = Meteor.users.findOne({_id:userId});
     var nessieId = user.profile.nessieId;
     var nessieAccountIds = user.profile.nessieAccountIds;
+    //console.log(nessieAccountIds);
     var postBody = {
         medium: "balance",
         transaction_date: SIMULATION_DATE,
@@ -160,25 +169,26 @@ var Start_Simulation = function (userId) {
     };
     for (var i = 0; i < nessieAccountIds.length; i++) {
         var accountId = nessieAccountIds[i];
-        for (var i = 0; i < SIMULATION_COUNT; i++) {
+        for (var j = 0; j < SIMULATION_COUNT; j++) {
             var urls = [
                 URL_START_STRING + "accounts/" + accountId + "/deposits?" + KEY,
                 /*URL_START_STRING + "accounts/" + accountId + "/transfers?type=payer&" + KEY,
                 URL_START_STRING + "accounts/" + accountId + "/transfers?type=payee&" + KEY,*/
                 URL_START_STRING + "accounts/" + accountId + "/withdrawals?" + KEY
             ];
-            for (var i = 0; i < urls.length; i++) {
-                var url = urls[i];
+            for (var k = 0; k < urls.length; k++) {
+                var url = urls[k];
+                var location = gps_position_generator();
                 var description = {
                     date: new Date(),
-                    lat: 40.7982133,
-                    long: -77.8620971
+                    lat: location.lat,
+                    long: location.long
+                };
+                if (notInsideAllowedZones(userId, description)) {
+                    Send_Notification(userId, description);
                 };
                 postBody.description = JSON.stringify(description);
                 HTTP.call("POST", url, { data: postBody });
-                if (notInsideAllowedZones(userId, description)) {
-                    Send_Notification(userId, description);
-                }
             };
         };
     };
@@ -208,6 +218,7 @@ Meteor.methods({
         };
     },
     "start_simulation": function () {
+        console.log("Starting Simulation");
         Start_Simulation(Meteor.userId());
     }
 });
