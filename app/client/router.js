@@ -5,7 +5,7 @@ Router.configure({
 });
 Router.route("/", {
     name: "homePage",
-    layoutTemplate: 'layout',
+    layoutTemplate: 'homeLayout',
     action: function () {
         this.render("index");
     }
@@ -44,4 +44,7 @@ Router.route("/add_alarm", {
     action: function () {
         this.render("addAlarm");
     }
+});
+Router.configure({
+    layoutTemplate:"homeLayout"
 });

@@ -1,0 +1,8 @@
+#footer {
+    margin-top: 24px;
+    background-color: #44BBF8;
+    @include shadow-2dp;
+    p {
+        opacity: 0.7;
+    }
+}

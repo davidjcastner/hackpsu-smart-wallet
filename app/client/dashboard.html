@@ -7,13 +7,13 @@
             {{> map}}
         </div>
         <!-- two tabs go here to switch between mangement and notifications -->
-        <div class="dashboard-tab mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+        <div class="tab-button dashboard-tab mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
             <!-- tab one -->
-            <button id="alarms" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">Alarms</button>
+            <button id="alarms" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Alarms</button>
         </div>
-        <div class="dashboard-tab mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+        <div class="tab-button dashboard-tab mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
             <!-- tab two -->
-            <button id="manage" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">Manage Accounts</button>
+            <button id="manage" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Manage Accounts</button>
         </div>
         <!-- list out notifcations here -->
         {{#if isCurrentTabAlarms}}
@@ -22,8 +22,8 @@
                 <button id="addAlarm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add Alarm</button>
             </div>
             {{#if isNoNotifications}}
-                <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-                    <p>You don't have any notifcations, please add one</p>
+                <div class="message-box mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+                    <p>You don't have any alarms, please add one</p>
                 </div>
             {{else}}
                 <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
@@ -52,8 +52,8 @@
                 <button id="addAccount" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add Account</button>
             </div>
             {{#if isNoCards}}
-                <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-                    <p>You don't have any cards, please add one</p>
+                <div class="message-box mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+                    <p>You don't have any accounts, please add one</p>
                 </div>
             {{else}}
                 <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">

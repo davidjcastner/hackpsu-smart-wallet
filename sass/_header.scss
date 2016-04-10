@@ -1,12 +1,15 @@
 #welcome-message {
     display: inline-block !important;
     padding-right: 16px;
-}
-
-#logo {
-    font-size: 24px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin: 0;
 }
 
 #header-buttons {
     text-align: right;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    button {
+    }
 }

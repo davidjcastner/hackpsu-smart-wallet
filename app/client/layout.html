@@ -9,3 +9,15 @@
         {{> footer}}
     </div>
 </template>
+
+<template name="homeLayout">
+    <div id="header" class="mdl-grid">
+        {{> header}}
+    </div>
+    <div id="home-layout" class="mdl-grid">
+        {{> yield}}
+    </div>
+    <div id="footer" class="mdl-grid">
+        {{> footer}}
+    </div>
+</template>
