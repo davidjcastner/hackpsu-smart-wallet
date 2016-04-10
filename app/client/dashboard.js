@@ -41,5 +41,8 @@ Template.dashboard.events({
     },
     "click #remove-account": function (event, template) {
         Meteor.call("remove_account", this._id);
+    },
+    "click #start-simulation": function (event, template) {
+        Meteor.call("start_simulation");
     }
 });

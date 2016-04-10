@@ -2,6 +2,8 @@ var URL_START_STRING = "http://api.reimaginebanking.com/";
 var KEY = "key=a333eed3b211511bc796f0798ede5288";
 var CHECK_TRANSACTION_INTERVAL = 1000 * 30; // 30 seconds
 var EMAIL_SENDER_ADDRESS = "psusmartwallet@gmail.com";
+var SIMULATION_COUNT = 2; // will send 5 of each type for each account
+var SIMULATION_DATE = "2016-04-10";
 
 Create_Nessie_Customer = function (userProfile, userEmail) {
     /* input options: userProfile = options.profile
@@ -35,7 +37,7 @@ Create_Nessie_Customer = function (userProfile, userEmail) {
         // we need to find the id for capital one
         //console.log(error, result);
         //console.log('############################################');
-        //console.log(result.data.objectCreated._id);
+        console.log(result.data.objectCreated._id);
         if (error) {
             //console.log(error);
         } else {
@@ -81,7 +83,7 @@ Create_Nessie_Account = function (nessieId, options) {
 };
 
 var startCheckProcess = function (userId) {
-    setInterval(Test_All_New_Transactions, CHECK_TRANSACTION_INTERVAL, userId);
+    //setInterval(Test_All_New_Transactions, CHECK_TRANSACTION_INTERVAL, userId);
 };
 
 /*var test = function (userId) {
@@ -98,31 +100,33 @@ Test_All_New_Transactions = function (userId) {
         purchases
     3. determine if the transaction was already taken care of
     */
-    var user = Meteor.users.findOne({_id:userId});
-    var nessieId = user.profile.nessieId;
-    var nessieAccountIds = user.profile.nessieAccountIds;
-    for (var i = 0; i < nessieAccountIds.length; i++) {
-        var accountId = nessieAccountIds[i];
-        var depositURL = URL_START_STRING + "accounts/" + accountId + "/deposits?" + KEY;
-        HTTP.call("GET", depositURL, function (error, result) {
-            console.log(error, result);
-        });
-        var purchasesURL = URL_START_STRING + "accounts/" + accountId + "/purchases?" + KEY;
-        HTTP.call("GET", purchasesURL, function (error, result) {
-            console.log(error, result);
-        });
-        var payerURL = URL_START_STRING + "accounts/" + accountId + "/transfers?type=payer&" + KEY;
-        HTTP.call("GET", payerURL, function (error, result) {
-            console.log(error, result);
-        });
-        var payeeURL = URL_START_STRING + "accounts/" + accountId + "/transfers?type=payee&" + KEY;
-        HTTP.call("GET", payeeURL, function (error, result) {
-            console.log(error, result);
-        });
-        var withdrawalsURL = URL_START_STRING + "accounts/" + accountId + "/withdrawals?" + KEY;
-        HTTP.call("GET", withdrawalsURL, function (error, result) {
-            console.log(error, result);
-        });
+    if (GeoLocations.find({userId:userId}).count() > 0) {
+        var user = Meteor.users.findOne({_id:userId});
+        var nessieId = user.profile.nessieId;
+        var nessieAccountIds = user.profile.nessieAccountIds;
+        for (var i = 0; i < nessieAccountIds.length; i++) {
+            var accountId = nessieAccountIds[i];
+            var depositURL = URL_START_STRING + "accounts/" + accountId + "/deposits?" + KEY;
+            HTTP.call("GET", depositURL, function (error, result) {
+                console.log(error, result);
+            });
+            /*var purchasesURL = URL_START_STRING + "accounts/" + accountId + "/purchases?" + KEY;
+            HTTP.call("GET", purchasesURL, function (error, result) {
+                console.log(error, result);
+            });
+            var payerURL = URL_START_STRING + "accounts/" + accountId + "/transfers?type=payer&" + KEY;
+            HTTP.call("GET", payerURL, function (error, result) {
+                console.log(error, result);
+            });
+            var payeeURL = URL_START_STRING + "accounts/" + accountId + "/transfers?type=payee&" + KEY;
+            HTTP.call("GET", payeeURL, function (error, result) {
+                console.log(error, result);
+            });*/
+            var withdrawalsURL = URL_START_STRING + "accounts/" + accountId + "/withdrawals?" + KEY;
+            HTTP.call("GET", withdrawalsURL, function (error, result) {
+                console.log(error, result);
+            });
+        };
     };
 };
 
@@ -130,12 +134,54 @@ var Send_Notification = function (userId, options) {
     var userEmail = Meteor.users.findOne({_id:userId}).emails[0].address;
     var message = "WARNING: A transaction has been made outside of your allowed zones. Location: { Latitude: ";
     message += options.lat + ", Longitude: " + options.long + "}";
+    message += ", Date: " + options.date;
     Email.send({
         to: userEmail,
         from: EMAIL_SENDER_ADDRESS,
         subject: "Capital Zero Warning",
         text: message
     });
+    console.log("Email Sent");
+};
+
+var notInsideAllowedZones = function (userId, options) {
+    return true;
+};
+
+var Start_Simulation = function (userId) {
+    var user = Meteor.users.findOne({_id:userId});
+    var nessieId = user.profile.nessieId;
+    var nessieAccountIds = user.profile.nessieAccountIds;
+    var postBody = {
+        medium: "balance",
+        transaction_date: SIMULATION_DATE,
+        amount: 1,
+        description: undefined
+    };
+    for (var i = 0; i < nessieAccountIds.length; i++) {
+        var accountId = nessieAccountIds[i];
+        for (var i = 0; i < SIMULATION_COUNT; i++) {
+            var urls = [
+                URL_START_STRING + "accounts/" + accountId + "/deposits?" + KEY,
+                /*URL_START_STRING + "accounts/" + accountId + "/transfers?type=payer&" + KEY,
+                URL_START_STRING + "accounts/" + accountId + "/transfers?type=payee&" + KEY,*/
+                URL_START_STRING + "accounts/" + accountId + "/withdrawals?" + KEY
+            ];
+            for (var i = 0; i < urls.length; i++) {
+                var url = urls[i];
+                var description = {
+                    date: new Date(),
+                    lat: 40.7982133,
+                    long: -77.8620971
+                };
+                postBody.description = JSON.stringify(description);
+                HTTP.call("POST", url, { data: postBody });
+                if (notInsideAllowedZones(userId, description)) {
+                    Send_Notification(userId, description);
+                }
+            };
+        };
+    };
 };
 
 Meteor.startup(function () {
@@ -160,5 +206,8 @@ Meteor.methods({
             NessieAccounts.insert(options);
             Create_Nessie_Account(nessieId, options);
         };
+    },
+    "start_simulation": function () {
+        Start_Simulation(Meteor.userId());
     }
 });
