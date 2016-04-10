@@ -1,24 +1,16 @@
 <template name="map">
 
-<head>
-<script src="http://maps.googleapis.com/maps/api/js"></script>
-<script>
-function initialize() {
-  var mapProp = {
-    center:new google.maps.LatLng(51.508742,-0.120850),
-    zoom:5,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-  alert(1);
-}
-google.maps.event.addDomListener(window, 'load', initialize);
-</script>
-
-
-</head>
-
-
 <div id="googleMap" style="width:500px;height:380px;"></div>
 This is map stuff
+
+<form>
+ Name of Alert: <input type="text" name="alertName">
+ Distance: <input type="number" name="distance" min="1" max="50">
+ Coordinates: <br/>
+ Lat:<input type="number" id="lat" name="lat">
+ Long:<input type="number" id="long" name="long">
+ <div id="clickedCoord"></div>q
+
+</form>
+
 </template>
