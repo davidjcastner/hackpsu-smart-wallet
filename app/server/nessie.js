@@ -139,19 +139,31 @@ create_new_deposit = function (userId, medium, transaction_date, status, amount,
 */
 
   var depositPostBody = {
-    "medium" = medium,
-    "transaction_date" = transaction_date,
-    "status" = status,
-    "amount" = amount,
-    "description" = description
+    "medium" : medium,
+    "transaction_date" : transaction_date,
+    "status" : status,
+    "amount" : amount,
+    "description" : description
   }
   var createDepositURL = URL_START_STRING + "accounts/" + userId + "/deposits?" + KEY;
   HTTP.call("POST", createDepositURL, { data: depositPostBody }, function (error, result) {
   console.log(result);
-}
+  });
 
+};
 
-}
+gps_position_generator = function(){
+  var newLat = Math.random() * (90 - (-90)) + (-90);
+  var newLng = Math.random() * (180 - (-180)) + (-180);
+  console.log(newLat);
+  console.log(newLng); 
+  return {lat: newLat, long: newLng};
+};
+
+Meteor.startup(function(){
+gps_position_generator();
+});
+
 Meteor.startup(function () {
     testURL = URL_START_STRING + "customers?" + KEY;
     if (false) {
