@@ -33,7 +33,7 @@ Create_Nessie_Customer = function (userProfile, userEmail) {
         // we need to find the id for capital one
         //console.log(error, result);
         //console.log('############################################');
-        //console.log(result.data.objectCreated._id);
+        console.log(result.data.objectCreated._id);
         if (error) {
             //console.log(error);
         } else {
@@ -89,6 +89,33 @@ Test_All_New_Transactions = function (userId) {
     */
 };
 
+
+create_new_deposit = function (userId, medium, transaction_date, status, amount, description){
+
+/*
+{
+  "medium": "balance",
+  "transaction_date": "2016-04-10",
+  "status": "pending",
+  "amount": 0,
+  "description": "string"
+}
+*/
+
+  var depositPostBody = {
+    "medium" = medium,
+    "transaction_date" = transaction_date,
+    "status" = status,
+    "amount" = amount,
+    "description" = description
+  }
+  var createDepositURL = URL_START_STRING + "accounts/" + userId + "/deposits?" + KEY;
+  HTTP.call("POST", createDepositURL, { data: depositPostBody }, function (error, result) {
+  console.log(result);
+}
+
+
+}
 Meteor.startup(function () {
     testURL = URL_START_STRING + "customers?" + KEY;
     if (false) {
