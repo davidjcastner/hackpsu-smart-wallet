@@ -1,13 +1,9 @@
 <template name="layout">
-    <div id="layout" class="mdl-grid">
-        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-            {{> header}}
-        </div>
-        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-            {{> yield}}
-        </div>
-        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-            {{> footer}}
-        </div>
+    <div id="header" class="mdl-grid">
+        {{> header}}
+    <div id="content" class="mdl-grid">
+        {{> yield}}
+    <div id="footer" class="mdl-grid">
+        {{> footer}}
     </div>
 </template>
