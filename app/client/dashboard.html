@@ -1,0 +1,17 @@
+<template name="dashboard">
+    {{#if currentUser}}
+        <!-- User is logged in -->
+        <!-- Dashboard header -->
+        <div>Dashboard</div>
+        <!-- map goes here, this map should display all -->
+        <!-- list out notifcations here -->
+        {{#unless getNotifcations}}
+        <div>You don't have any notifcations, please add one</div>
+        {{/unless}}
+        {{#each getNotifications}}
+        {{/each}}
+    {{else}}
+        <!-- User is not logged in -->
+        <div>Please log in</div>
+    {{/if}}
+</template>

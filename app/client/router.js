@@ -10,3 +10,17 @@ Router.route("/", {
         this.render("index");
     }
 });
+Router.route("/dashboard", {
+    name: "dashboard",
+    layoutTemplate: 'layout',
+    action: function () {
+        this.render("dashboard");
+    }
+});
+Router.route("/signup", {
+    name: "signup",
+    layoutTemplate: 'layout',
+    action: function () {
+        this.render("signup");
+    }
+});
