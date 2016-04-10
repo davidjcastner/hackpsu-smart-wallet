@@ -1,12 +1,12 @@
 <template name="layout">
-    <div id="layout" class="row">
-        <div class="col s12">
+    <div id="layout" class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             {{> header}}
         </div>
-        <div class="col s12">
+        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             {{> yield}}
         </div>
-        <div class="col s12">
+        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             {{> footer}}
         </div>
     </div>
