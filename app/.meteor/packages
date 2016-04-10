@@ -21,3 +21,4 @@ iron:router
 accounts-password
 http
 session
+email

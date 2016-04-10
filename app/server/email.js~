@@ -1,11 +1,9 @@
-import { Meteor } from 'meteor/meteor';
-
 Meteor.startup(function () {
     //  the MAIL_URL environment variable should be in the form of:
     //  smtp://USERNAME:PASSWORD@HOST:PORT/
     var smtpSettings = {
-        USERNAME: "postmaster@mg.capitalzero.io", // SMTP Hostname
-        PASSWORD: "a1c0d23f1add6306a4a2fe72a35137e3", // Default Password
+        USERNAME: "", // SMTP Hostname
+        PASSWORD: "", // Default Password
         HOST: "smtp.mailgun.org",
         PORT: "587"
     }
@@ -14,9 +12,10 @@ Meteor.startup(function () {
     var smtpString = "smtp://";
     smtpString += smtpSettings.USERNAME + ":" + smtpSettings.PASSWORD;
     smtpString += "@" + smtpSettings.HOST + ":" + smtpSettings.PORT + "/";
-    console.log(smtpString);
+    //console.log(smtpString);
     process.env.MAIL_URL = smtpString;
 });
+
 
 
 // In your server code: define a method that the client can call

@@ -20,4 +20,5 @@ var transactionPlace = "Penn State";
 var completeMessage = messagePart1.concat(transactionAmount, messagePart2, transactionPlace);
 
 Meteor.call('sendEmail',emailTo , emailFrom, subject, completeMessage);
+console.log("email send");
 // this file is for general client code
