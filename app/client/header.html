@@ -1,16 +1,15 @@
 <template name="header">
-    <div id="header" class="mdl-grid">
-        <div class="mdl-cell mdl-cell--9-col-desktop mdl-cell--5-col-tablet mdl-cell--4-col-phone">
-            <!-- logo and branding goes here -->
-            <h1 id="logo">Smart Wallet</h1>
-        </div>
-        <div id="header-buttons" class="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--4-col-phone">
+    <div class="mdl-cell mdl-cell--9-col-desktop mdl-cell--5-col-tablet mdl-cell--4-col-phone">
+        <!-- logo and branding goes here -->
+        <h1 id="logo">Smart Wallet</h1>
+    </div>
+    <div id="header-buttons" class="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--4-col-phone">
+        {{#if currentUser}}
             <button id="dashboardLink" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Dashboard</button>
-            {{#if currentUser}}
-                <button id="logout" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Log Out</button>
-            {{else}}
-                <button id="login" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Log In</button>
-            {{/if}}
-        </div>
+            <button id="logout" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Log Out</button>
+        {{else}}
+            <button id="signup" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Sign Up</button>
+            <button id="login" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Log In</button>
+        {{/if}}
     </div>
 </template>
