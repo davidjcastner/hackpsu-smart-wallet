@@ -60,18 +60,17 @@ Create_Nessie_Account = function (nessieId, options) {
 */
 
 var accoutPostBody = {
-  "type": option.account_type,
-  "nickname": option.nickname,
-  "rewards": option.rewards,
-  "balance": option.balance,
-  "account_number": option.account_number
+  "type": option.type;
+  "nickname": option.nickname;
+  "rewards": option.rewards;
+  "balance": option.balance;
+  "account_number": option.account_number; 
 };
 
 createAccountURL = URL_START_STRING + "customers/ " + nessieId + "/accounts?" + KEY;
-
 HTTP.call("POST", createCustomerURL, { data: accoutPostBody }, function (error, result) {
-	console.log(result);	
-  });
+	
+  }
 
 };
 
