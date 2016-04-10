@@ -1,5 +1,6 @@
 var URL_START_STRING = "http://api.reimaginebanking.com/";
 var KEY = "key=a333eed3b211511bc796f0798ede5288";
+var CHECK_TRANSACTION_INTERVAL = 1000 * 30; // one minute
 
 Create_Nessie_Customer = function (userProfile, userEmail) {
     /* input options: userProfile = options.profile
@@ -44,6 +45,7 @@ Create_Nessie_Customer = function (userProfile, userEmail) {
                     }
                 }
             );
+            startCheckProcess(user._id);
         };
     });
 };
@@ -77,6 +79,14 @@ Create_Nessie_Account = function (nessieId, options) {
     });
 };
 
+var startCheckProcess = function (userId) {
+    setInterval(Test_All_New_Transactions, CHECK_TRANSACTION_INTERVAL, userId);
+};
+
+/*var test = function (userId) {
+    console.log(userId);
+};*/
+
 Test_All_New_Transactions = function (userId) {
     /* Steps to take:
     1. get all nessieAccounts for the user
@@ -87,6 +97,32 @@ Test_All_New_Transactions = function (userId) {
         purchases
     3. determine if the transaction was already taken care of
     */
+    var user = Meteor.users.findOne({_id:userId});
+    var nessieId = user.profile.nessieId;
+    var nessieAccountIds = user.profile.nessieAccountIds;
+    for (var i = 0; i < nessieAccountIds.length; i++) {
+        var accountId = nessieAccountIds[i];
+        var depositURL = URL_START_STRING + "accounts/" + accountId + "/deposits?" + KEY;
+        HTTP.call("GET", depositURL, function (error, result) {
+            console.log(error, result);
+        });
+        var purchasesURL = URL_START_STRING + "accounts/" + accountId + "/purchases?" + KEY;
+        HTTP.call("GET", purchasesURL, function (error, result) {
+            console.log(error, result);
+        });
+        var payerURL = URL_START_STRING + "accounts/" + accountId + "/transfers?type=payer&" + KEY;
+        HTTP.call("GET", payerURL, function (error, result) {
+            console.log(error, result);
+        });
+        var payeeURL = URL_START_STRING + "accounts/" + accountId + "/transfers?type=payee&" + KEY;
+        HTTP.call("GET", payeeURL, function (error, result) {
+            console.log(error, result);
+        });
+        var withdrawalsURL = URL_START_STRING + "accounts/" + accountId + "/withdrawals?" + KEY;
+        HTTP.call("GET", withdrawalsURL, function (error, result) {
+            console.log(error, result);
+        });
+    };
 };
 
 Meteor.startup(function () {
