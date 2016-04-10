@@ -1,3 +1,7 @@
+#welcome-message {
+  display: inline-block !important;
+  padding-right: 16px; }
+
 #logo {
   font-size: 24px; }
 
