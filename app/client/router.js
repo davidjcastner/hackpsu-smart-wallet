@@ -24,3 +24,10 @@ Router.route("/signup", {
         this.render("signup");
     }
 });
+Router.route("/login", {
+    name: "login",
+    layoutTemplate: 'layout',
+    action: function () {
+        this.render("login");
+    }
+});
