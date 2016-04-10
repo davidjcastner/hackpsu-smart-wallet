@@ -1,6 +1,7 @@
 var URL_START_STRING = "http://api.reimaginebanking.com/";
 var KEY = "key=a333eed3b211511bc796f0798ede5288";
-var CHECK_TRANSACTION_INTERVAL = 1000 * 30; // one minute
+var CHECK_TRANSACTION_INTERVAL = 1000 * 30; // 30 seconds
+var EMAIL_SENDER_ADDRESS = "psusmartwallet@gmail.com";
 
 Create_Nessie_Customer = function (userProfile, userEmail) {
     /* input options: userProfile = options.profile
@@ -123,6 +124,18 @@ Test_All_New_Transactions = function (userId) {
             console.log(error, result);
         });
     };
+};
+
+var Send_Notification = function (userId, options) {
+    var userEmail = Meteor.users.findOne({_id:userId}).emails[0].address;
+    var message = "WARNING: A transaction has been made outside of your allowed zones. Location: { Latitude: ";
+    message += options.lat + ", Longitude: " + options.long + "}";
+    Email.send({
+        to: userEmail,
+        from: EMAIL_SENDER_ADDRESS,
+        subject: "Capital Zero Warning",
+        text: message
+    });
 };
 
 Meteor.startup(function () {
