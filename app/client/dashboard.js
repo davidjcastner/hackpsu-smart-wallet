@@ -16,10 +16,10 @@ Template.dashboard.helpers({
         return GeoLocations.find({});
     },
     isNoCards: function () {
-        return false;
+        return NessieAccounts.find().count() == 0;
     },
     getCards: function () {
-        return [{}];
+        return NessieAccounts.find({});
     }
 });
 

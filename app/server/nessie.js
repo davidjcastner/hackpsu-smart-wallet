@@ -84,3 +84,16 @@ Meteor.startup(function () {
             console.log(result);
     }); };
 });
+
+Meteor.methods({
+    "add_nessie_account": function (options) {
+        if (!Meteor.userId()) {
+            throw new Meteor.Error("not-logged-in");
+        } else {
+            var nessieId = Meteor.user.nessieId;
+            options.userId = Meteor.userId();
+            NessieAccounts.insert(options);
+            Create_Nessie_Account(nessieId, options);
+        };
+    }
+});
