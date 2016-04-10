@@ -28,7 +28,7 @@ Create_Nessie_Customer = function (userProfile, userEmail) {
             "zip": userProfile.zip
         }
     };
-    createCustomerURL = URL_START_STRING + "customers?" + KEY;
+    var createCustomerURL = URL_START_STRING + "customers?" + KEY;
     HTTP.call("POST", createCustomerURL, { data: postBody }, function (error, result) {
         // we need to find the id for capital one
         //console.log(error, result);
@@ -49,30 +49,32 @@ Create_Nessie_Customer = function (userProfile, userEmail) {
 };
 
 Create_Nessie_Account = function (nessieId, options) {
-
-/*	{
-  "type": "Credit Card",
-  "nickname": "string",
-  "rewards": 0,
-  "balance": 0,
-  "account_number": "string"
-}
-*/
-
-var accoutPostBody = {
-  "type": option.account_type,
-  "nickname": option.nickname,
-  "rewards": option.rewards,
-  "balance": option.balance,
-  "account_number": option.account_number
-};
-
-createAccountURL = URL_START_STRING + "customers/ " + nessieId + "/accounts?" + KEY;
-
-HTTP.call("POST", createCustomerURL, { data: accoutPostBody }, function (error, result) {
-	console.log(result);	
-  });
-
+    /*	{
+      "type": "Credit Card",
+      "nickname": "string",
+      "rewards": 0,
+      "balance": 0,
+      "account_number": "string"
+    }
+    */
+    var accountPostBody = {
+      "type": options.type,
+      "nickname": options.nickname,
+      "rewards": options.rewards,
+      "balance": options.balance,
+      "account_number": options.account_number
+    };
+    var createAccountURL = URL_START_STRING + "customers/" + nessieId + "/accounts?" + KEY;
+    //console.log(createAccountURL, accountPostBody);
+    HTTP.call("POST", createAccountURL, { data: accountPostBody }, function (error, result) {
+        var user = Meteor.users.findOne({"profile.nessieId":nessieId});
+        //console.log(result);
+        Meteor.users.update({ _id:user._id }, { $push: {
+                "profile.nessieAccountIds": result.data.objectCreated._id
+                }
+            }
+        );
+    });
 };
 
 Meteor.startup(function () {
@@ -90,7 +92,9 @@ Meteor.methods({
         if (!Meteor.userId()) {
             throw new Meteor.Error("not-logged-in");
         } else {
-            var nessieId = Meteor.user.nessieId;
+            var nessieId = Meteor.user().profile.nessieId;
+            //console.log(Meteor.user());
+            //console.log(nessieId);
             options.userId = Meteor.userId();
             NessieAccounts.insert(options);
             Create_Nessie_Account(nessieId, options);

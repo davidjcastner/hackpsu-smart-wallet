@@ -32,5 +32,8 @@ Template.dashboard.events({
     },
     "click #addAccount": function (event, template) {
         Router.go("addAccount");
+    },
+    "click #remove-account": function (event, template) {
+        Meteor.call("remove_account", this._id);
     }
 });

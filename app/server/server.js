@@ -4,13 +4,13 @@ GeoLocations =  new Mongo.Collection('geoLocations');
 NessieAccounts =  new Mongo.Collection('nessieAccounts');
 
 Meteor.publish('geo_locations', function() {
-    return GeoLocations.find({ /*userId: this.userId */}, { fields: {
+    return GeoLocations.find({ userId: this.userId }, { fields: {
         userId: false
     }});
 });
 
 Meteor.publish('nessie_accounts', function() {
-    return NessieAccounts.find({ /*userId: this.userId */}, { fields: {
+    return NessieAccounts.find({ userId: this.userId }, { fields: {
         userId: false
     }});
 });
@@ -26,5 +26,8 @@ Meteor.methods({
             long: options.long,
             //time block
         });
+    },
+    remove_account: function (nessieAccountId) {
+        NessieAccounts.remove({_id:nessieAccountId});
     }
 });

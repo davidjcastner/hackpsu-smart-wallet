@@ -34,5 +34,5 @@ Template.addAccount.events({
                 Router.go("dashboard");
             };
         });
-    },
+    }
 });
