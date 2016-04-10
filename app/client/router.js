@@ -38,3 +38,10 @@ Router.route("/add_account", {
         this.render("addAccount");
     }
 });
+Router.route("/add_alarm", {
+    name: "addAlarm",
+    layoutTemplate: 'layout',
+    action: function () {
+        this.render("addAlarm");
+    }
+});

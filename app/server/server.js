@@ -16,16 +16,13 @@ Meteor.publish('nessie_accounts', function() {
 });
 
 Meteor.methods({
-    insertGeoLocation: function (options) {
+    add_geo_location: function (options) {
         // run checks here, don't need to write them for the hackathon
-        GeoLocations.insert({
-            userId: this.userId,
-            name: options.name,
-            type: options.type,
-            lat: options.lat,
-            long: options.long,
-            //time block
-        });
+        options.userId = Meteor.userId();
+        GeoLocations.insert(options);
+    },
+    remove_geo_location: function (geoLocationId) {
+        GeoLocations.remove({_id:geoLocationId});
     },
     remove_account: function (nessieAccountId) {
         NessieAccounts.remove({_id:nessieAccountId});

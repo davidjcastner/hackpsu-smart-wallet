@@ -1,0 +1,38 @@
+<template name="addAlarm">
+    <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+        <!-- map goes here for input -->
+        <div id="input-map" class="google-map"></div>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+        <form id="add-alarm-form">
+            <div class="mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__supporting-text">
+                    <!-- Notification Name -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="name" />
+                        <label class="mdl-textfield__label" for="name">Name</label>
+                    </div>
+                    <!-- Lat input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="lat" value="{{getLat}}" />
+                        <label class="mdl-textfield__label" for="lat">Latitude</label>
+                    </div>
+                    <!-- Long input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="long" value="{{getLong}}" />
+                        <label class="mdl-textfield__label" for="long">Longitude</label>
+                    </div>
+                    <!-- Distance input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="distance" />
+                        <label class="mdl-textfield__label" for="distance">Distance (miles)</label>
+                    </div>
+                </div>
+                <div class="action-button mdl-card__actions">
+                    <!-- Submit -->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Alarm</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>

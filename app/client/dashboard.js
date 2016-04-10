@@ -30,8 +30,14 @@ Template.dashboard.events({
     "click #manage": function (event, template) {
         Session.set("isTabAlarms", false);
     },
+    "click #addAlarm": function (event, template) {
+        Router.go("addAlarm");
+    },
     "click #addAccount": function (event, template) {
         Router.go("addAccount");
+    },
+    "click #remove-geo-location": function (event, template) {
+        Meteor.call("remove_geo_location", this._id);
     },
     "click #remove-account": function (event, template) {
         Meteor.call("remove_account", this._id);

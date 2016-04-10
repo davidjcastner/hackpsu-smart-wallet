@@ -27,6 +27,10 @@
     #content form .mdl-card .mdl-textfield, #content form .mdl-card .mdl-radio {
       width: 100%; }
 
+.google-map {
+  width: 100%;
+  height: 400px; }
+
 #mock-map {
   width: 100%;
   height: 400px;
