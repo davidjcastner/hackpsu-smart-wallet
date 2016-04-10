@@ -1,15 +1,64 @@
 <template name="signup">
     <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="email" />
-            <label class="mdl-textfield__label" for="email">Email</label>
-        </div>
-        <!-- Password input -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="password" id="userpass" />
-            <label class="mdl-textfield__label" for="userpass">Password</label>
-        </div>
-        <!-- Submit -->
-        <button id="signup-submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Sign Up</button>
+        <form id="signup-form">
+            <div class="mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__supporting-text">
+                    <!-- email input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="email" />
+                        <label class="mdl-textfield__label" for="email">Email</label>
+                    </div>
+                    <!-- Password input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="password" id="password" />
+                        <label class="mdl-textfield__label" for="password">Password</label>
+                    </div>
+                    <!-- Confirm password input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="password" id="confirm_password" />
+                        <label class="mdl-textfield__label" for="confirm_password">Confirm Password</label>
+                    </div>
+                    <!-- First Name input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="first_name" />
+                        <label class="mdl-textfield__label" for="first_name">First Name</label>
+                    </div>
+                    <!-- Last Name input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="last_name" />
+                        <label class="mdl-textfield__label" for="last_name">Last Name</label>
+                    </div>
+                    <!-- Street Number input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="street_number" />
+                        <label class="mdl-textfield__label" for="street_number">Street Number</label>
+                    </div>
+                    <!-- Street Name input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="street_name" />
+                        <label class="mdl-textfield__label" for="street_name">Street Name</label>
+                    </div>
+                    <!-- City input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="city" />
+                        <label class="mdl-textfield__label" for="city">City</label>
+                    </div>
+                    <!-- State input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="state" />
+                        <label class="mdl-textfield__label" for="state">State</label>
+                    </div>
+                    <!-- Zip input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="zip" />
+                        <label class="mdl-textfield__label" for="zip">Zip</label>
+                    </div>
+                </div>
+                <div class="action-button mdl-card__actions">
+                    <!-- Submit -->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Sign Up</button>
+                </div>
+            </div>
+        </form>
     </div>
 </template>

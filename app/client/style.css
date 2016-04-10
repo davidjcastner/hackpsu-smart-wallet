@@ -16,6 +16,12 @@
     #content .action-button button {
       width: 100%;
       max-width: 300px; }
+  #content form .mdl-card {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto; }
+    #content form .mdl-card .mdl-textfield {
+      width: 100%; }
 
 #mock-map {
   width: 100%;
