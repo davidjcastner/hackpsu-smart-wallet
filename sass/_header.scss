@@ -13,3 +13,8 @@
     button {
     }
 }
+
+#header {
+    background-color: #E1F5FE;
+    @include shadow-2dp;
+}

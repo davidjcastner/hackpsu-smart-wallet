@@ -1,6 +1,26 @@
 #home-layout {
     //max-width: 960px;
     margin: 0 auto;
+    padding: 0;
+    .mdl-cell {
+        width: 100%;
+        margin: 0;
+        &:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        div {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 16px;
+            p {
+                font-size: 16px;
+            }
+        }
+        #home-logo {
+            margin: 0 auto;
+            text-align: center;
+        }
+    }
     .dashboard-tab {
         text-align: center;
     }

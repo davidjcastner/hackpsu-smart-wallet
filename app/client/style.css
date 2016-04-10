@@ -26,8 +26,27 @@
   padding-top: 14px;
   padding-bottom: 14px; }
 
+#header {
+  background-color: #E1F5FE;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+
 #home-layout {
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding: 0; }
+  #home-layout .mdl-cell {
+    width: 100%;
+    margin: 0; }
+    #home-layout .mdl-cell:nth-child(odd) {
+      background-color: #ffffff; }
+    #home-layout .mdl-cell div {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px; }
+      #home-layout .mdl-cell div p {
+        font-size: 16px; }
+    #home-layout .mdl-cell #home-logo {
+      margin: 0 auto;
+      text-align: center; }
   #home-layout .dashboard-tab {
     text-align: center; }
   #home-layout ul, #home-layout li {
