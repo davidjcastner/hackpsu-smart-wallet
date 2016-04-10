@@ -20,7 +20,7 @@
     width: 100%;
     max-width: 500px;
     margin: 0 auto; }
-    #content form .mdl-card .mdl-textfield {
+    #content form .mdl-card .mdl-textfield, #content form .mdl-card .mdl-radio {
       width: 100%; }
 
 #mock-map {

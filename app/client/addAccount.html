@@ -1,0 +1,42 @@
+<template name="addAccount">
+    <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+        <form id="add-account-form">
+            <div class="mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__supporting-text">
+                    <!-- Nickname input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="password" id="nickname" />
+                        <label class="mdl-textfield__label" for="nickname">Nickname for Account</label>
+                    </div>
+                    <!-- Account type input -->
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-credit_card">
+                        <input type="radio" id="option-credit_card" class="mdl-radio__button" name="account_type" value="credit_card" checked>
+                        <span class="mdl-radio__label">Credit Card</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-savings">
+                        <input type="radio" id="option-savings" class="mdl-radio__button" name="account_type" value="savings">
+                        <span class="mdl-radio__label">Savings</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-checkings">
+                        <input type="radio" id="option-checkings" class="mdl-radio__button" name="account_type" value="checkings">
+                        <span class="mdl-radio__label">Checkings</span>
+                    </label>
+                    <!-- Rewards input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="rewards" />
+                        <label class="mdl-textfield__label" for="rewards">Rewards</label>
+                    </div>
+                    <!-- Account Number input -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="account_number" />
+                        <label class="mdl-textfield__label" for="account_number">Account Number</label>
+                    </div>
+                </div>
+                <div class="action-button mdl-card__actions">
+                    <!-- Submit -->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Account</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>

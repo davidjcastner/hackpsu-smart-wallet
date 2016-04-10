@@ -31,3 +31,10 @@ Router.route("/login", {
         this.render("login");
     }
 });
+Router.route("/add_account", {
+    name: "addAccount",
+    layoutTemplate: 'layout',
+    action: function () {
+        this.render("addAccount");
+    }
+});

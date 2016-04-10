@@ -29,5 +29,8 @@ Template.dashboard.events({
     },
     "click #manage": function (event, template) {
         Session.set("isTabAlarms", false);
+    },
+    "click #addAccount": function (event, template) {
+        Router.go("addAccount");
     }
 });
