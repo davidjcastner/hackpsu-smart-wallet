@@ -7,3 +7,7 @@ Template.login.events({
         Meteor.loginWithPassword(userEmail, userPassword);
     }
 });
+
+Template.login.onRendered(function() {
+    componentHandler.upgradeAllRegistered();
+});

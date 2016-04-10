@@ -3,7 +3,7 @@ import { Mongo } from 'meteor/mongo';
 GeoLocations =  new Mongo.Collection('geoLocations');
 
 Meteor.publish('geo_locations', function() {
-    return GeoLocations.find({ userId: this.userId }, { fields: {
+    return GeoLocations.find({ /*userId: this.userId */}, { fields: {
         userId: false
     }});
 });
