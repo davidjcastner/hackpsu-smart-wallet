@@ -77,6 +77,18 @@ Create_Nessie_Account = function (nessieId, options) {
     });
 };
 
+Test_All_New_Transactions = function (userId) {
+    /* Steps to take:
+    1. get all nessieAccounts for the user
+    2. perform a get request for each account on the following types:
+        deposits
+        withdraws
+        transfers
+        purchases
+    3. determine if the transaction was already taken care of
+    */
+};
+
 Meteor.startup(function () {
     testURL = URL_START_STRING + "customers?" + KEY;
     if (false) {
