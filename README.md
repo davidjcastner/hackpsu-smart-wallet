@@ -1,4 +1,4 @@
-# hackpsu-smart-wallet
+# [Archived] hackpsu-smart-wallet
 Best hackathon team at HackPSU
 
 Features:
